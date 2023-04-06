@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>illegal drugs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>ILLEGAL DRUGS</h1>
+        <div class="card" id="cards">
+
+            <script>
+                const xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", "illegal_drugs.php");
+                xmlhttp.send();
+                xmlhttp.onload = function() {
+                    const illegal_drugs = JSON.parse(this.responseText).illegal_drugs;
+                    const items = document.getElementById('cards');
+                    var j=0;
+                    if(illegal_drugs){
+                        for(const i in illegal_drugs){
+                            j += 1;
+                            const row =`
+                                <div class="card">
+                                    <div class="face front">
+                                        <img src="${illegal_drugs[i].image}" alt="">
+                                        <h3>${illegal_drugs[i].name}</h3>
+                                    </div>
+                                    <div class="face back">
+                                        <h3>${illegal_drugs[i].type}</h3>
+                                        <p>${illegal_drugs[i].formula}</p>
+                                        <p>${illegal_drugs[i].duration}</p>
+                                        <p>Legal Status</p>
+                                        <ul>
+                                            <p>California:${illegal_drugs[i].legalstatus.ca}</p>
+                                            <p>Austria:${illegal_drugs[i].legalstatus.au}</p>
+                                            <p>Denmark:${illegal_drugs[i].legalstatus.de}</p>
+                                            <p>United States:${illegal_drugs[i].legalstatus.us}</p>
+                                            <p>United Kingdom:${illegal_drugs[i].legalstatus.uk}</p>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                            items.innerHTML += row;
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>   
+</body>
+</html>
